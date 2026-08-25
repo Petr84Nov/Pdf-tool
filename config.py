@@ -1,0 +1,1 @@
+main_font = ('Times New Roman', 18)
