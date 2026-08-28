@@ -16,6 +16,7 @@ root = ctk.CTk()
 root.geometry("500x420")
 root.title("Pdf Tool")
 root.resizable(False, False)
+root.iconbitmap('icon.ico')
 
 tabview = ctk.CTkTabview(master=root,width=380, height=380)
 tabview.pack( fill="both", expand=True, padx=10, pady=10)
