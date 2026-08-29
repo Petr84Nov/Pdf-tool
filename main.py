@@ -46,8 +46,11 @@ select_page_label = ctk.CTkLabel(page_frame, text='Číslo stránky: ', font=mai
 select_page_label.grid(row=0, column=0, padx=5)
 entry_page_number = ctk.CTkEntry(page_frame, font=main_font, width=50, textvariable=tk.StringVar(value='1'))
 entry_page_number.grid(row=0, column=1, padx=5)
-extract_button = ctk.CTkButton(tab_split,text='Uložit stránku jako...', font=main_font, command=lambda :extract_page(entry_path, entry_page_number))
+extract_button = ctk.CTkButton(tab_split,text='Uložit stránku jako...', font=main_font, command=lambda : extract_page(entry_path, entry_page_number))
 extract_button.pack( anchor="w", pady=(5, 0), fill="x")
+
+save_as_text_button = ctk.CTkButton(tab_split, text='Uložit stránku jako txt', font=main_font, command=lambda : save_as_text(entry_path))
+save_as_text_button.pack( anchor="w", pady=(25, 0), fill="x")
 
 # tab_merge
 info_merge_label = ctk.CTkLabel(tab_merge, text='Vyber PDF soubory ke sloučení (v pořadí, v jakém mají jít za sebou):')

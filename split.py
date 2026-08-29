@@ -1,8 +1,7 @@
 import os
 from tkinter import filedialog, messagebox
 from pypdf import PdfReader, PdfWriter
-
-# from main import entry_path, info_label, entry_page_number
+import pdfplumber
 
 
 # funkce pro výběr souboru
@@ -79,6 +78,34 @@ def extract_page(entry_path, entry_page_number):
         writer.add_page(reader.pages[page_number - 1])
         with open(output_path, "wb") as f:
             writer.write(f)
+        messagebox.showinfo('Hotovo', 'Stránka úspěšně uložena')
     except Exception as e:
         messagebox.showerror('Chyba', f'Uložení stránky se nezdařilo: \n{e}')
 
+def save_as_text(entry_path):
+    file_path = entry_path.get()
+    text = ''
+    if not file_path:
+        messagebox.showwarning('Není vybrán soubor', 'Nejprve vyber pdf soubor')
+        return
+    try:
+        with pdfplumber.open(file_path) as pdf:
+            for page in pdf.pages:
+                text += page.extract_text() + '\n'
+    except Exception as e:
+        messagebox.showerror('Chyba', 'Uložení souboru se nezdařilo')
+
+    output_path = filedialog.asksaveasfilename(
+        title='Uložit soubor jako..',
+        filetypes=[('txt soubor', '.txt')],
+        defaultextension='.txt',
+    )
+    if not output_path:
+        return
+
+    try:
+        with open(output_path, "w") as f:
+            f.write(text)
+        messagebox.showinfo('Hotovo', 'Soubor úspěšně uložen')
+    except Exception as e:
+        messagebox.showerror('Chyba', 'Uložení souboru se nezdařilo')
